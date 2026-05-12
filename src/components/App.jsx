@@ -25,6 +25,29 @@ function App() {
     setShowForm((showForm) => !showForm);
   }
 
+  function addingToys(newToy) {
+    setToys((prevToy) => {
+      [...prevToy, newToy]
+    })
+  }
+
+  function addLiking(newLike){
+    const likings = toys.map((toy) => {
+      if(toy.id === newLike.id){
+        return newLike
+      }else{
+        return toy
+      }
+    })
+    setToys(likings)
+  }
+
+  function addDelete(deletedToy) {
+    const deleteItem = toys.filter((toy) => {
+      toy.id !== deletedToy.id
+    })
+    setToys(deleteItem)
+  }
   return (
     <>
       <Header />
@@ -32,7 +55,8 @@ function App() {
       <div className="buttonContainer">
         <button onClick={handleClick}>Add a Toy</button>
       </div>
-      <ToyContainer toys = {toys}/>
+      <ToyContainer toys = {toys} addLiking = {addLiking} addDelete = {addDelete}/>
+      <ToyForm toys = {toys} addingToys = {addingToys}/>
     </>
   );
 }
